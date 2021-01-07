@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script type="text/javascript" src="jQuery/jquery-3.5.1.js"></script>
+    <script type="text/javascript" src="vue/vue.js"></script>
+    <title>购物车</title>
+    <style>
+        #app {
+            width: 800px;
+            margin: 0 auto;
+            border: 1px solid #000000;
+            padding: 1px;
+        }
+
+        #app > table {
+            width: 800px;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            border: 1px solid #000000;
+            line-height: 60px;
+            text-align: center;
+        }
+
+        [v-cloak] {
+            display: none !important;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <table>
+        <caption>
+            <h1>真不划算</h1>
+        </caption>
+        <thead>
+        <tr>
+            <th>商品</th>
+            <th>单价（元）</th>
+            <th>颜色</th>
+            <th>库存</th>
+            <th>好评率</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr v-for="(item, index) in goods" v-cloak>
+            <td>{{item.product}}</td>
+            <td>{{item.price | formatPrice}}</td>
+            <td>{{item.colour}}</td>
+            <td>{{item.quantity}}</td>
+            <td>{{item.rate | formatRate}}</td>
+            <td>
+                <button @click="addToCart(index)">添加到购物车</button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <table style="margin-bottom: 50px">
+        <caption>
+            <h1>真不划算购物车</h1>
+        </caption>
+        <thead>
+        <tr>
+            <th>商品</th>
+            <th>单价（元）</th>
+            <th>数量</th>
+            <th>金额（元）</th>
+            <th>删除</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr v-for="(item, index) in cart" v-cloak>
+            <td>{{item.product}}</td>
+            <td>{{item.price | formatPrice}}</td>
+            <td>
+                <button @click="addGood(index)">+</button>
+                <label>
+                    <input type="text" style="text-align: center; width: 50px" v-model.number="item.quantity"
+                           v-on:change="changQuantity(item.id, item.quantity, index)">
+                </label>
+                <button @click="subtractGood(index)">-</button>
+            </td>
+            <td>{{ item.price * item.quantity | formatPrice}}</td>
+            <td>
+                <button @click="removeToCart(item.id, index)">删除</button>
+            </td>
+        </tr>
+        <tr id="cart">
+            <td colspan="3" style="text-align: right">总计：</td>
+            <td>{{computedPrice | formatPrice}}</td>
+            <td>
+                <button @click="commit(computedPrice)">确认购买</button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<script src="js/shopping.js" type="text/javascript"></script>
+</body>
+</html>
