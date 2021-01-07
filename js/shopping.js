@@ -48,6 +48,7 @@ const app = new Vue({
                             this.cart[i].quantity++;
                             good.quantity--;
                             carts_quantity.set(good.id, parseInt(this.cart[i].quantity));
+                            carts_quantity.set(this.cart[i].id, this.cart[i].quantity);
                         }
                     }
                 }
