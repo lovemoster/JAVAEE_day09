@@ -81,7 +81,7 @@
             <td>
                 <button @click="addGood(index)">+</button>
                 <label>
-                    <input type="text" style="text-align: center; width: 50px" v-model.number="item.quantity"
+                    <input type="text" style="text-align: center; width: 50px" v-model="item.quantity"
                            v-on:change="changQuantity(item.id, item.quantity, index)">
                 </label>
                 <button @click="subtractGood(index)">-</button>

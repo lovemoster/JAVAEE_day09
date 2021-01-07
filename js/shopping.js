@@ -48,7 +48,6 @@ const app = new Vue({
                             this.cart[i].quantity++;
                             good.quantity--;
                             carts_quantity.set(good.id, parseInt(this.cart[i].quantity));
-                            carts_quantity.set(this.cart[i].id, this.cart[i].quantity);
                         }
                     }
                 }
@@ -94,6 +93,7 @@ const app = new Vue({
         },
         changQuantity: function (id, quantity, index) {
             //判断是否修改过购物车
+            console.log(carts_quantity.get(id))
             if (carts_quantity.get(id) === undefined) {
                 //判断添加的数量是否超过总数
                 if (parseInt(quantity) > carts.get(id).quantity) {
